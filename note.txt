@@ -1,0 +1,41 @@
+updateSearchParams():
+
+if (model) {
+  searchParams.set("model", model);
+} else {
+  searchParams.delete("model");
+}
+
+
+-----
+If a model is provided (i.e., not an empty string), the function adds or updates the "model" query parameter in the URL using searchParams.set().
+If model is empty, the "model" query parameter is removed from the URL using searchParams.delete().
+
+
+const newPathName = `${window.location.pathname}?${searchParams.toString()}`;
+-----
+After updating the query parameters, the function builds a new URL:
+window.location.pathname gives the current path (without the query parameters).
+searchParams.toString() converts the updated query parameters back into a query string (e.g., model=tiguan&manufacturer=volkswagen).
+The two parts are concatenated to form the new URL path (e.g., /search?model=tiguan&manufacturer=volkswagen)
+
+
+router.push(newPathName);
+-----
+The new URL is passed to router.push() to navigate to the updated path without reloading the page.
+router.push() is part of the useRouter hook from Next.js, allowing client-side navigation and URL manipulation.
+
+
+
+
+NOTE:
+When params of URL is updated, NEXT js automatically refetch the data from API.
+
+the searchParams are the server-side query parameters, which Next.js automatically passes to the Home component 
+during server-side rendering (SSR) or static site generation (SSG).
+When a Next.js page uses Server-Side Rendering (SSR), it fetches data on each request, 
+meaning the query parameters in the URL are sent to the server, and the page is generated dynamically on the server-side.
+
+
+
+Explain : CustomFilter.tsx
